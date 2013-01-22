@@ -1,8 +1,8 @@
 # jQuery Image Gallery Plugin
 
-## This branch
+## This fork
 
-The goal of this branch is to be able to turn a folder full of pictures
+The goal of this fork is to be able to turn a folder full of pictures
 into a slideshow using very few steps. 
 
 ### Requires
