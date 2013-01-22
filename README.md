@@ -1,5 +1,26 @@
 # jQuery Image Gallery Plugin
 
+## This branch
+
+The goal of this branch is to be able to turn a folder full of pictures
+into a slideshow using very few steps. 
+
+### Requires
+* `convert' (ImageMagick)
+
+### Steps
+1. Clone.
+2. Add your pictures to the img folder. They can be in subdirectories, and (as-is) they must be jpeg's.
+2. `make'
+3. Adjust `baseURL' in js/main.js as appropriate for your server.
+
+### Notes
+* The slideshow starts automatically in fullscreen (which is full-window until the user clicks "fullscreen"). This happens because of the `.click()' calls at the end of main.js.
+* `make' does the following: 
+    1. looks for all jpeg's in the current directory and all of its subdirectories
+    2. produces a thumbnail for each, if it does not exist already
+    3. creates js/img.json, which defines a title, thumbnail url, and source url for each. Titles can be modified by hand if others are desired.
+
 ## Demo
 [jQuery Image Gallery Demo](http://blueimp.github.com/jQuery-Image-Gallery/)
 

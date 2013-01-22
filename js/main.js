@@ -1,5 +1,13 @@
 /*
- * jQuery Image Gallery Plugin JS Example 2.5
+ * This example by swgreen adapted from the following
+ * original example referenced below. 
+ *
+ * Also licensed under the MIT license.
+ *
+ * Prepared for github on Jan 22, 2012.
+ *
+ * Adapted from:
+ * jQuery Image Gallery Plugin JS Example 2.2
  * https://github.com/blueimp/jQuery-Image-Gallery
  *
  * Copyright 2011, Sebastian Tschan
@@ -14,6 +22,9 @@
 
 $(function () {
     'use strict';
+
+    var baseURL = "";
+    //var baseURL = "http://www.example.com"
 
     // Initialize the Image Gallery widget:
     $('#gallery').imagegallery();
@@ -36,10 +47,10 @@ $(function () {
     // Listen to options changes:
     $('#buttonset input, #effect').change(function () {
         $('#gallery').imagegallery('option', {
-            show: $('#effect').val(),
-            hide: $('#effect').val(),
+            show: 'random', //$('#effect').val(),
+            hide: 'random', //$('#effect').val(),
             fullscreen: $('#option-fullscreen').is(':checked'),
-            slideshow: $('#option-slideshow').is(':checked') && 5000
+            slideshow: 5000 //$('#option-slideshow').is(':checked') && 5000
         });
     });
 
@@ -62,28 +73,24 @@ $(function () {
         }
     });
 
-    // Load images via flickr for demonstration purposes:
-    $.ajax({
-        url: 'http://api.flickr.com/services/rest/',
-        data: {
-            format: 'json',
-            method: 'flickr.interestingness.getList',
-            api_key: '7617adae70159d09ba78cfec73c13be3'
-        },
-	    dataType: 'jsonp',
-        jsonp: 'jsoncallback'
-    }).done(function (data) {
-        var gallery = $('#gallery'),
-            url;
-        $.each(data.photos.photo, function (index, photo) {
-            url = 'http://farm' + photo.farm + '.static.flickr.com/' +
-                photo.server + '/' + photo.id + '_' + photo.secret;
+    console.log("Greetings from main.js.");
+
+    var myGallery = $('#gallery');
+ 
+    $.getJSON('js/img.json', function(myPhotos1) {
+
+        $.each(myPhotos1, function (index, photo) {
             $('<a data-gallery="gallery"/>')
-                .append($('<img>').prop('src', url + '_s.jpg'))
-                .prop('href', url + '_b.jpg')
-                .prop('title', photo.title)
-                .appendTo(gallery);
+                .append($('<img>').prop('src',baseURL+photo.thumb))
+                .prop('href',baseURL+photo.src)
+                .prop('title',photo.title)
+                .appendTo(myGallery)
         });
+        console.log("Done, oh yeah.");console.log(myPhotos1); // semicolon?
+        console.log("Clicking fullscreen button.");
+        $('#option-fullscreen').click();
+        console.log("Clicking first thumbnail.");
+        $('#gallery').children()[0].click();
     });
 
 });

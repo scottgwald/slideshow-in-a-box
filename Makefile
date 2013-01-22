@@ -1,9 +1,19 @@
-.PHONY: default css js
+# Set up your browser slideshow, complete with thumbnail gallery
+#
+# `make' creates thumbnails and json for gallery
+#
+# requires helper.bash in the same directory
+#
 
-default: css js
+default: js/img.json
 
-css:
-	lessc --compress css/jquery.image-gallery.css > css/jquery.image-gallery.min.css
+js/img.json: 
+	echo "Running helper.bash"
+	./helper.bash
 
-js:
-	uglifyjs -nc js/jquery.image-gallery.js > js/jquery.image-gallery.min.js
+clean:
+	echo "removing js/img.json"
+	rm js/img.json
+
+# next try putting it in the js subdirectory
+# and see if everything still works
