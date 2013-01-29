@@ -23,8 +23,10 @@
 $(function () {
     'use strict';
 
-    var baseURL = "";
-    //var baseURL = "http://www.example.com"
+    var baseURL = myConfig.baseURL;
+    var remoteServer = myConfig.remoteServer;
+    // console.log("about to load socket");
+    // $.getScript(myConfig.socketURL);
 
     // Initialize the Image Gallery widget:
     $('#gallery').imagegallery();
@@ -91,6 +93,17 @@ $(function () {
         $('#option-fullscreen').click();
         console.log("Clicking first thumbnail.");
         $('#gallery').children()[0].click();
+    });
+
+    var socket = io.connect(remoteServer);
+    socket.on('next slide', function () {
+        console.log("Got 'next slide' from socket.");
+        $("#gallery").data("imagegallery")._next();
+    });
+
+    socket.on('previous slide', function () {
+        console.log("Got 'previous slide' from socket.");
+        $("#gallery").data("imagegallery")._prev();
     });
 
 });
